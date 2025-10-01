@@ -25,7 +25,9 @@ public static class PatientService
         Console.Write("Enter symptom: ");
         string symptom = Console.ReadLine() ?? string.Empty;
 
-        var patient = new Patient(name, age, symptom);
+        int id = patients.Count > 0 ? patients.Max(p => p.Id) + 1 : 1;
+
+        var patient = new Patient(id, name, age, symptom);
         patients.Add(patient);
         Console.WriteLine($"✅ Patient registered successfully (ID: {patient.Id})\n");
     }

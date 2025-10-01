@@ -1,17 +1,9 @@
 namespace VeterinaryCenter.ConsoleApp.Models;
 
-public class Patient
+public class Patient(int id, string name, int age, string symptom)
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public int Age { get; set; }
-    public string Symptom { get; set; } = string.Empty;
-
-    public Patient(string name, int age, string symptom)
-    {
-        Id = 1;
-        Name = name;
-        Age = age;
-        Symptom = symptom;
-    }
+    public int Id { get; set; } = id;
+    public string Name { get; set; } = name.ToLower().Trim();
+    public int Age { get; set; } = age;
+    public string Symptom { get; set; } = symptom.ToLower().Trim();
 }

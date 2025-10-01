@@ -9,26 +9,27 @@ public class PatientService
     public void RegisterPatient(List<Patient> patients)
     {
         Console.WriteLine("--- Register New Patient ---");
-        Patient p = new Patient();
-        p.Id = _nextId++;
+        var id = _nextId++;
 
         Console.Write("Enter patient name: ");
-        p.Name = Console.ReadLine();
+        var name = Console.ReadLine() ?? string.Empty;
 
         Console.Write("Enter age: ");
+        int age;
         try
         {
-            p.Age = int.Parse(Console.ReadLine() ?? "0");
+            age = int.Parse(Console.ReadLine() ?? "0");
         }
         catch
         {
             Console.WriteLine("⚠ Invalid age. Defaulting to 0.");
-            p.Age = 0;
+            age= 0;
         }
 
         Console.Write("Enter symptom: ");
-        p.Symptom = Console.ReadLine();
+        var symptom = Console.ReadLine() ?? string.Empty;
 
+        Patient p = new Patient(name, age, symptom);
         patients.Add(p);
         Console.WriteLine($"✅ Patient registered successfully (ID: {p.Id})\n");
     }
@@ -65,3 +66,4 @@ public class PatientService
     }
 
 }
+ 

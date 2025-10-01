@@ -1,5 +1,6 @@
 ﻿using VeterinaryCenter.ConsoleApp.Models;
 using VeterinaryCenter.ConsoleApp.Services;
+using VeterinaryCenter.ConsoleApp.Utils;
 
 List<Patient> patients = [];
 
@@ -7,12 +8,7 @@ bool exit = false;
 
 while (!exit)
 {
-    Console.WriteLine("=== Veterinary Center Menu ===");
-    Console.WriteLine("1. Register patient");
-    Console.WriteLine("2. List patients");
-    Console.WriteLine("3. Search patient by name");
-    Console.WriteLine("4. Exit");
-    Console.Write("Choose an option: ");
+    View.ShowMenu();
     string option = Console.ReadLine() ?? string.Empty;
 
     switch (option)

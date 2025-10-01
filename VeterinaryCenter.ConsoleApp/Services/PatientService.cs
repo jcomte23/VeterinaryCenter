@@ -2,17 +2,13 @@ using VeterinaryCenter.ConsoleApp.Models;
 
 namespace VeterinaryCenter.ConsoleApp.Services;
 
-public class PatientService
+public static class PatientService
 {
-    private int _nextId = 1;
-
-    public void RegisterPatient(List<Patient> patients)
+    public static void RegisterPatient(List<Patient> patients)
     {
         Console.WriteLine("--- Register New Patient ---");
-        var id = _nextId++;
-
         Console.Write("Enter patient name: ");
-        var name = Console.ReadLine() ?? string.Empty;
+        string name = Console.ReadLine() ?? string.Empty;
 
         Console.Write("Enter age: ");
         int age;
@@ -27,14 +23,14 @@ public class PatientService
         }
 
         Console.Write("Enter symptom: ");
-        var symptom = Console.ReadLine() ?? string.Empty;
+        string symptom = Console.ReadLine() ?? string.Empty;
 
-        Patient p = new Patient(name, age, symptom);
-        patients.Add(p);
-        Console.WriteLine($"✅ Patient registered successfully (ID: {p.Id})\n");
+        var patient = new Patient(name, age, symptom);
+        patients.Add(patient);
+        Console.WriteLine($"✅ Patient registered successfully (ID: {patient.Id})\n");
     }
 
-    public void ListPatients(List<Patient> patients)
+    public static void ListPatients(List<Patient> patients)
     {
         Console.WriteLine("--- Patient List ---");
         if (patients.Count == 0)
@@ -50,7 +46,7 @@ public class PatientService
         Console.WriteLine();
     }
 
-    public void SearchPatientByName(List<Patient> patients, string name)
+    public static void SearchPatientByName(List<Patient> patients, string name)
     {
         Console.WriteLine($"--- Searching for: {name} ---");
         var found = patients.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
@@ -64,6 +60,5 @@ public class PatientService
             Console.WriteLine("⚠ No patient found with that name.\n");
         }
     }
-
 }
  

@@ -1,8 +1,7 @@
 ﻿using VeterinaryCenter.ConsoleApp.Models;
 using VeterinaryCenter.ConsoleApp.Services;
 
-List<Patient> patients = new List<Patient>();
-PatientService service = new PatientService();
+List<Patient> patients = [];
 
 bool exit = false;
 
@@ -19,17 +18,17 @@ while (!exit)
     switch (option)
     {
         case "1":
-            service.RegisterPatient(patients);
+            PatientService.RegisterPatient(patients);
             break;
 
         case "2":
-            service.ListPatients(patients);
+            PatientService.ListPatients(patients);
             break;
 
         case "3":
             Console.Write("Enter patient name to search: ");
             string name = Console.ReadLine() ?? string.Empty;
-            service.SearchPatientByName(patients, name);
+            PatientService.SearchPatientByName(patients, name);
             break;
 
         case "4":

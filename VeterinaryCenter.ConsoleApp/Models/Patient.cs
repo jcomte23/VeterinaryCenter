@@ -6,4 +6,5 @@ public class Patient(int id, string name, int age, string symptom)
     public string Name { get; set; } = name.ToLower().Trim();
     public int Age { get; set; } = age;
     public string Symptom { get; set; } = symptom.ToLower().Trim();
+    public List<Pet> Pets { get; set; } = [];
 }

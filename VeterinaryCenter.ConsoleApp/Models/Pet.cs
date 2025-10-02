@@ -7,5 +7,5 @@ public class Pet(int id, string name, byte ageInMonths, string species, int pati
     public byte AgeInMonths { get; set; } = ageInMonths;
     public string Species { get; set; } = species.ToLower().Trim();
     public int PatientId { get; set; } = patientId;
-    public Patient? Patient { get; set; }
+    public Customer? Patient { get; set; }
 }

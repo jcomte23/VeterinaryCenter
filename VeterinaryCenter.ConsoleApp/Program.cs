@@ -2,7 +2,7 @@
 using VeterinaryCenter.ConsoleApp.Services;
 using VeterinaryCenter.ConsoleApp.Utils;
 
-List<Patient> patients = [];
+List<Customer> patients = [];
 
 bool exit = false;
 

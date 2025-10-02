@@ -4,9 +4,9 @@ namespace VeterinaryCenter.ConsoleApp.Services;
 
 public static class PatientService
 {
-    public static void RegisterPatient(List<Patient> patients)
+    public static void RegisterPatient(List<Customer> patients)
     {
-        Console.WriteLine("--- Register New Patient ---");
+        Console.WriteLine("--- Register New Customer ---");
         Console.Write("Enter patient name: ");
         string name = Console.ReadLine() ?? string.Empty;
 
@@ -27,14 +27,14 @@ public static class PatientService
 
         int id = patients.Count > 0 ? patients.Max(p => p.Id) + 1 : 1;
 
-        var patient = new Patient(id, name, age, symptom);
+        var patient = new Customer(id, name, age, symptom);
         patients.Add(patient);
-        Console.WriteLine($"✅ Patient registered successfully (ID: {patient.Id})\n");
+        Console.WriteLine($"✅ Customer registered successfully (ID: {patient.Id})\n");
     }
 
-    public static void ListPatients(List<Patient> patients)
+    public static void ListPatients(List<Customer> patients)
     {
-        Console.WriteLine("--- Patient List ---");
+        Console.WriteLine("--- Customer List ---");
         if (patients.Count == 0)
         {
             Console.WriteLine("No patients registered yet.\n");
@@ -43,19 +43,19 @@ public static class PatientService
 
         foreach (var p in patients)
         {
-            Console.WriteLine($"ID: {p.Id}, Name: {p.Name}, Age: {p.Age}, Symptom: {p.Symptom}");
+            Console.WriteLine($"ID: {p.Id}, Name: {p.Name}");
         }
         Console.WriteLine();
     }
 
-    public static void SearchPatientByName(List<Patient> patients, string name)
+    public static void SearchPatientByName(List<Customer> patients, string name)
     {
         Console.WriteLine($"--- Searching for: {name} ---");
         var found = patients.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
         if (found != null)
         {
-            Console.WriteLine($"✅ Found: ID {found.Id}, {found.Name}, Age {found.Age}, Symptom: {found.Symptom}\n");
+            Console.WriteLine($"✅ Found: ID {found.Id}, {found.Name},\n");
         }
         else
         {

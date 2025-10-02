@@ -15,5 +15,5 @@ var cliente = new Customer
 	birthDay: new DateOnly(1990, 1, 1)
 );
 
-cliente.ShowBasicInfo();
+cliente.ShowInfo();
 

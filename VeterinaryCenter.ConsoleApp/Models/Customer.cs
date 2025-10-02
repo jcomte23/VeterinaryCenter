@@ -20,10 +20,11 @@ internal class Customer : Person
 		Pets = [];
 	}
 
-	internal override void ShowBasicInfo()
+	internal void ShowInfo() 
 	{
-		base.ShowBasicInfo();
+		ShowBasicInfo();
 		Console.WriteLine($"BirthDay: {BirthDay:dd/MM/yyyy}");
 		Console.WriteLine($"Pets Count: {Pets.Count}");
 	}
+
 }

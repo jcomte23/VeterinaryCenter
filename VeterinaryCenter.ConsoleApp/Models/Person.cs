@@ -11,7 +11,7 @@ internal abstract class Person(string name, string lastName, DocumentType docume
     protected string Email { get; set; } = email;
     protected string Address { get; set; } = address;
 
-    protected virtual void ShowBasicInfo()
+    protected void ShowBasicInfo()
 	{
 		Console.WriteLine($"ID: {Id}");
 		Console.WriteLine($"Name: {Name} {LastName}");

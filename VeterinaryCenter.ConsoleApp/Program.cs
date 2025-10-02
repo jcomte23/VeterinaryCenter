@@ -11,7 +11,8 @@ var cliente = new Customer
 	documentNumber: "123456789",
 	phoneNumber: "555-1234",
 	email: "john.doe@gmail.com",
-	address: "123 Main St"
+	address: "123 Main St", 
+	birthDay: new DateOnly(1990, 1, 1)
 );
 
 cliente.ShowBasicInfo();

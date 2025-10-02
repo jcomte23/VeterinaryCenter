@@ -22,5 +22,12 @@ internal class Veterinarian : Person
 		Specialty = specialty;
 		YearsExperience = yearsExperience;
 	}
+
+	internal override void ShowBasicInfo()
+	{
+		base.ShowBasicInfo();
+		Console.WriteLine($"Specialty: {Specialty}");
+		Console.WriteLine($"Years of Experience: {YearsExperience}");
+	}
 }
 

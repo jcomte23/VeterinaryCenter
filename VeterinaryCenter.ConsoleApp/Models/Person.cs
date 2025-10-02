@@ -11,11 +11,11 @@ internal abstract class Person(string name, string lastName, DocumentType docume
     protected string Email { get; set; } = email;
     protected string Address { get; set; } = address;
 
-    internal void ShowBasicInfo()
+    protected virtual void ShowBasicInfo()
 	{
 		Console.WriteLine($"ID: {Id}");
 		Console.WriteLine($"Name: {Name} {LastName}");
-		Console.WriteLine($"Document: {DocumentType} - {DocumentNumber}");
+		Console.WriteLine($"Document: {DocumentType.Name} - {DocumentNumber}");
 		Console.WriteLine($"Phone: {PhoneNumber}");
 		Console.WriteLine($"Email: {Email}");
 		Console.WriteLine($"Address: {Address}");

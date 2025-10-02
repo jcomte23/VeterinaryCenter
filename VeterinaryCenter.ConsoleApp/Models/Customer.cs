@@ -24,4 +24,9 @@ public class Customer
         Address = address;
         Pets = [];
     }
+
+	public void AddPet(Pet pet)
+	{
+		Pets?.Add(pet);
+	}
 }

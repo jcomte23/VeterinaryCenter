@@ -5,14 +5,14 @@ Console.WriteLine("Welcome to VeterinaryCenter.ConsoleApp!");
 
 var cliente = new Customer
 (
-    "Juan",
-    "Pérez",
-    documentType: Database.DocumentTypes[0],
-    new DateOnly(1990, 5, 21),
-    "3001234567",
-    "juan.perez@example.com",
-    "Cra 10 #15-23, Bogotá"
+	name: "John",
+	lastName: "Doe",
+	documentType: Database.DocumentTypes[0],
+	documentNumber: "123456789",
+	phoneNumber: "555-1234",
+	email: "john.doe@gmail.com",
+	address: "123 Main St"
 );
 
-Database.Customers.Add(cliente);
+cliente.ShowBasicInfo();
 

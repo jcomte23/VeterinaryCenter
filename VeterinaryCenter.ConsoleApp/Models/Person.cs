@@ -1,4 +1,6 @@
-﻿namespace VeterinaryCenter.ConsoleApp.Models;
+﻿using VeterinaryCenter.ConsoleApp.Models.Enums;
+
+namespace VeterinaryCenter.ConsoleApp.Models;
 
 internal abstract class Person(string name, string lastName, DocumentType documentType, string documentNumber, string phoneNumber, string email, string address)
 {
@@ -15,7 +17,7 @@ internal abstract class Person(string name, string lastName, DocumentType docume
 	{
 		Console.WriteLine($"ID: {Id}");
 		Console.WriteLine($"Name: {Name} {LastName}");
-		Console.WriteLine($"Document: {DocumentType.Name} - {DocumentNumber}");
+		Console.WriteLine($"Document: {DocumentType} - {DocumentNumber}");
 		Console.WriteLine($"Phone: {PhoneNumber}");
 		Console.WriteLine($"Email: {Email}");
 		Console.WriteLine($"Address: {Address}");

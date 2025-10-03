@@ -1,4 +1,6 @@
-﻿namespace VeterinaryCenter.ConsoleApp.Models;
+﻿using VeterinaryCenter.ConsoleApp.Models.Enums;
+
+namespace VeterinaryCenter.ConsoleApp.Models;
 
 internal class Veterinarian : Person
 {

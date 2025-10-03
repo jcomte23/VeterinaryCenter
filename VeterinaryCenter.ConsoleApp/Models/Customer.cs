@@ -1,3 +1,5 @@
+using VeterinaryCenter.ConsoleApp.Models.Enums;
+
 namespace VeterinaryCenter.ConsoleApp.Models;
 
 internal class Customer : Person

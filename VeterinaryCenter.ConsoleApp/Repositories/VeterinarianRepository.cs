@@ -6,32 +6,41 @@ namespace VeterinaryCenter.ConsoleApp.Repositories;
 
 internal class VeterinarianRepository : IVeterinarianRepository
 {
+    private readonly List<Veterinarian> _veterinarians = [];
+
     public void AddVeterinarian(Veterinarian veterinarian)
     {
-        Database.Veterinarians.Add(veterinarian);
+		if (_veterinarians.Any(v => v.DocumentNumber == veterinarian.DocumentNumber))
+			throw new InvalidOperationException("Ya existe un veterinario con ese documento.");
+
+		_veterinarians.Add(veterinarian);
 	}
 
     public void DeleteVeterinarian(Guid id)
     {
-        Database.Veterinarians.RemoveAll(v => v.Id == id);
+		var vet = GetVeterinarianById(id);
+		if (vet is not null)
+		{
+			_veterinarians.Remove(vet);
+		}
 	}
 
     public List<Veterinarian> GetAllVeterinarians()
     {
-        return Database.Veterinarians;
+        return _veterinarians;
     }
 
     public Veterinarian? GetVeterinarianById(Guid id)
     {
-        return Database.Veterinarians.FirstOrDefault(v => v.Id == id);
+        return _veterinarians.FirstOrDefault(v => v.Id == id);
 	}
 
     public void UpdateVeterinarian(Veterinarian veterinarian)
     {
-        var index = Database.Veterinarians.FindIndex(v => v.Id == veterinarian.Id);
+        var index = _veterinarians.FindIndex(v => v.Id == veterinarian.Id);
         if (index != -1)
         {
-            Database.Veterinarians[index] = veterinarian;
+			_veterinarians[index] = veterinarian;
 		}
 	}
 }

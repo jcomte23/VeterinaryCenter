@@ -1,8 +1,8 @@
 namespace VeterinaryCenter.ConsoleApp.Models;
 
-public class DocumentType(int id,string name, string abbreviation)
+internal class DocumentType(int id,string name, string abbreviation)
 {
-    public int Id { get; set; } = id;
-    public string Name { get; set; } = name;
-    public string Abbreviation { get; set; } = abbreviation;
+    internal int Id { get; set; } = id;
+	internal string Name { get; set; } = name;
+	internal string Abbreviation { get; set; } = abbreviation;
 }

@@ -6,7 +6,7 @@ internal abstract class Person(string name, string lastName, DocumentType docume
     protected string Name { get; set; } = name;
     protected string LastName { get; set; } = lastName;
     protected DocumentType DocumentType { get; set; } = documentType;
-    protected string DocumentNumber { get; set; } = documentNumber;
+    internal string DocumentNumber { get; set; } = documentNumber;
     protected string PhoneNumber { get; set; } = phoneNumber;
     protected string Email { get; set; } = email;
     protected string Address { get; set; } = address;

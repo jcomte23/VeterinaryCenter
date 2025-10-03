@@ -1,4 +1,5 @@
-﻿using VeterinaryCenter.ConsoleApp.Interfaces;
+﻿using VeterinaryCenter.ConsoleApp.Data;
+using VeterinaryCenter.ConsoleApp.Interfaces;
 using VeterinaryCenter.ConsoleApp.Models;
 
 namespace VeterinaryCenter.ConsoleApp.Repositories;
@@ -7,27 +8,31 @@ internal class VeterinarianRepository : IVeterinarianRepository
 {
     public void AddVeterinarian(Veterinarian veterinarian)
     {
-        throw new NotImplementedException();
-    }
+        Database.Veterinarians.Add(veterinarian);
+	}
 
     public void DeleteVeterinarian(Guid id)
     {
-        throw new NotImplementedException();
-    }
+        Database.Veterinarians.RemoveAll(v => v.Id == id);
+	}
 
     public List<Veterinarian> GetAllVeterinarians()
     {
-        throw new NotImplementedException();
+        return Database.Veterinarians;
     }
 
     public Veterinarian? GetVeterinarianById(Guid id)
     {
-        throw new NotImplementedException();
-    }
+        return Database.Veterinarians.FirstOrDefault(v => v.Id == id);
+	}
 
     public void UpdateVeterinarian(Veterinarian veterinarian)
     {
-        throw new NotImplementedException();
-    }
+        var index = Database.Veterinarians.FindIndex(v => v.Id == veterinarian.Id);
+        if (index != -1)
+        {
+            Database.Veterinarians[index] = veterinarian;
+		}
+	}
 }
 

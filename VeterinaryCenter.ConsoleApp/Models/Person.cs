@@ -2,7 +2,7 @@
 
 internal abstract class Person(string name, string lastName, DocumentType documentType, string documentNumber, string phoneNumber, string email, string address)
 {
-    protected Guid Id { get; set; } = Guid.NewGuid();
+    internal Guid Id { get; set; } = Guid.NewGuid();
     protected string Name { get; set; } = name;
     protected string LastName { get; set; } = lastName;
     protected DocumentType DocumentType { get; set; } = documentType;

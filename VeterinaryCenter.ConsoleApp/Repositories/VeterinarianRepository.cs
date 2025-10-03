@@ -1,5 +1,4 @@
-﻿using VeterinaryCenter.ConsoleApp.Data;
-using VeterinaryCenter.ConsoleApp.Interfaces;
+﻿using VeterinaryCenter.ConsoleApp.Interfaces;
 using VeterinaryCenter.ConsoleApp.Models;
 
 namespace VeterinaryCenter.ConsoleApp.Repositories;

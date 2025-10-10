@@ -1,13 +1,9 @@
-﻿using VeterinaryCenter.ConsoleApp.Interfaces;
-using VeterinaryCenter.ConsoleApp.Menus;
+﻿using VeterinaryCenter.ConsoleApp.Menus;
 using VeterinaryCenter.ConsoleApp.Repositories;
+using VeterinaryCenter.ConsoleApp.Services;
 
+var repository = new VeterinarianRepository();
+var service = new VeterinarianService(repository);
+var menu = new VeterinarianMenu(service);
 
-// Crear dependencias manualmente (sin inyección de dependencias aún)
-IVeterinarianRepository veterinarianRepository = new VeterinarianRepository();
-
-// Crear el menú pasando la dependencia
-var veterinarianMenu = new VeterinarianMenu(veterinarianRepository);
-
-// Mostrar el menú de veterinarios
-veterinarianMenu.ShowMenu();
+menu.ShowMenu();

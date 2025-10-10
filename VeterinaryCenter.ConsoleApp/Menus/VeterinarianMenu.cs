@@ -1,68 +1,60 @@
-﻿using VeterinaryCenter.ConsoleApp.Data;
-using VeterinaryCenter.ConsoleApp.Entities;
-using VeterinaryCenter.ConsoleApp.Interfaces;
+﻿using VeterinaryCenter.ConsoleApp.Entities;
 using VeterinaryCenter.ConsoleApp.Models.Enums;
+using VeterinaryCenter.ConsoleApp.Services;
 
 namespace VeterinaryCenter.ConsoleApp.Menus;
 
-internal class VeterinarianMenu(IVeterinarianRepository repository)
+internal class VeterinarianMenu(VeterinarianService service)
 {
-	private readonly IVeterinarianRepository _repository = repository;
+    private readonly VeterinarianService _service = service;
 
     public void ShowMenu()
-	{
-		int option = -1;
+    {
+        int option = -1;
 
-		while (option != 0)
-		{
-			Console.Clear();
-			Console.WriteLine("=== Gestión de Veterinarios ===");
-			Console.WriteLine("1. Registrar veterinario");
-			Console.WriteLine("2. Listar veterinarios");
-			Console.WriteLine("3. Buscar veterinario por ID");
-			Console.WriteLine("4. Actualizar veterinario");
-			Console.WriteLine("5. Eliminar veterinario");
-			Console.WriteLine("0. Volver al menú principal");
-			Console.Write("Seleccione una opción: ");
+        while (option != 0)
+        {
+            Console.Clear();
+            Console.WriteLine("=== Gestión de Veterinarios ===");
+            Console.WriteLine("1. Registrar veterinario");
+            Console.WriteLine("2. Listar veterinarios");
+            Console.WriteLine("3. Buscar veterinario por ID");
+            Console.WriteLine("4. Actualizar veterinario");
+            Console.WriteLine("5. Eliminar veterinario");
+            Console.WriteLine("0. Volver al menú principal");
+            Console.Write("Seleccione una opción: ");
 
-			if (!int.TryParse(Console.ReadLine(), out option))
-				option = -1;
+            if (!int.TryParse(Console.ReadLine(), out option))
+                option = -1;
 
-			Console.Clear();
+            Console.Clear();
 
-			switch (option)
-			{
-				case 1:
-					CreateVeterinarian();
-					break;
-				case 2:
-					ListVeterinarians();
-					break;
-				case 3:
-					GetVeterinarianById();
-					break;
-				case 4:
-					UpdateVeterinarian();
-					break;
-				case 5:
-					DeleteVeterinarian();
-					break;
-				case 0:
-					Console.WriteLine("Volviendo al menú principal...");
-					break;
-				default:
-					Console.WriteLine("Opción inválida.");
-					break;
-			}
+            switch (option)
+            {
+                case 1: CreateVeterinarian(); break;
+                case 2: ListVeterinarians(); break;
+                case 3: GetVeterinarianById(); break;
+                case 4: UpdateVeterinarian(); break;
+                case 5: DeleteVeterinarian(); break;
+                case 0:
+                    Console.WriteLine("Volviendo al menú principal...");
+                    break;
+                default:
+                    Console.WriteLine("Opción inválida.");
+                    break;
+            }
 
-			if (option != 0)
-			{
-				Console.WriteLine("\nPresione una tecla para continuar...");
-				Console.ReadKey();
-			}
-		}
-	}
+            if (option != 0)
+            {
+                Console.WriteLine("\nPresione una tecla para continuar...");
+                Console.ReadKey();
+            }
+        }
+    }
 
+    // ========================================================
+    // MÉTODOS CRUD usando el servicio
+    // ========================================================
     private void CreateVeterinarian()
     {
         Console.WriteLine("=== Registrar Veterinario ===");
@@ -73,7 +65,7 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
         Console.Write("Apellido: ");
         string lastName = Console.ReadLine()?.Trim() ?? "";
 
-        // === Selección del tipo de documento ===
+        // === Tipo de documento ===
         Console.WriteLine("Seleccione el tipo de documento:");
         var docTypes = Enum.GetValues(typeof(DocumentType)).Cast<DocumentType>().ToList();
 
@@ -111,7 +103,6 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
         Console.Write("Años de experiencia: ");
         int years = int.TryParse(Console.ReadLine(), out var y) ? y : 0;
 
-        // === Crear objeto Veterinarian ===
         var vet = new Veterinarian(
             name, lastName,
             documentType,
@@ -119,47 +110,52 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
             specialty, years
         );
 
-        _repository.AddVeterinarian(vet);
-        Console.WriteLine("\n✅ Veterinario registrado con éxito.");
+        try
+        {
+            _service.AddVeterinarian(vet);
+            Console.WriteLine("\n✅ Veterinario registrado con éxito.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Error: {ex.Message}");
+        }
     }
 
     private void ListVeterinarians()
-	{
-		Console.WriteLine("=== Lista de Veterinarios ===");
-		var vets = _repository.GetAllVeterinarians();
+    {
+        Console.WriteLine("=== Lista de Veterinarios ===");
+        var vets = _service.GetAllVeterinarians();
 
-		if (vets.Count == 0)
-		{
-			Console.WriteLine("No hay veterinarios registrados.");
-			return;
-		}
+        if (vets.Count == 0)
+        {
+            Console.WriteLine("No hay veterinarios registrados.");
+            return;
+        }
 
-		foreach (var v in vets)
-		{
-			v.ShowInfo();
-		}
-	}
+        foreach (var v in vets)
+            v.ShowInfo();
+    }
 
-	private void GetVeterinarianById()
-	{
-		Console.Write("Ingrese el ID del veterinario: ");
-		var idText = Console.ReadLine();
+    private void GetVeterinarianById()
+    {
+        Console.Write("Ingrese el ID del veterinario: ");
+        var idText = Console.ReadLine();
 
-		if (!Guid.TryParse(idText, out var id))
-		{
-			Console.WriteLine("ID inválido.");
-			return;
-		}
+        if (!Guid.TryParse(idText, out var id))
+        {
+            Console.WriteLine("ID inválido.");
+            return;
+        }
 
-		var vet = _repository.GetVeterinarianById(id);
-		if (vet is null)
-		{
-			Console.WriteLine("No se encontró el veterinario.");
-			return;
-		}
+        var vet = _service.GetVeterinarianById(id);
+        if (vet is null)
+        {
+            Console.WriteLine("No se encontró el veterinario.");
+            return;
+        }
 
-		vet.ShowInfo();
-	}
+        vet.ShowInfo();
+    }
 
     private void UpdateVeterinarian()
     {
@@ -172,7 +168,7 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
             return;
         }
 
-        var vet = _repository.GetVeterinarianById(id);
+        var vet = _service.GetVeterinarianById(id);
         if (vet is null)
         {
             Console.WriteLine("❌ No se encontró el veterinario.");
@@ -211,23 +207,23 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
         if (int.TryParse(input, out var years))
             vet.YearsExperience = years;
 
-        _repository.UpdateVeterinarian(vet);
+        _service.UpdateVeterinarian(vet);
         Console.WriteLine("\n✅ Veterinario actualizado con éxito.");
     }
 
     private void DeleteVeterinarian()
-	{
-		Console.Write("Ingrese el ID del veterinario a eliminar: ");
-		var idText = Console.ReadLine();
+    {
+        Console.Write("Ingrese el ID del veterinario a eliminar: ");
+        var idText = Console.ReadLine();
 
-		if (!Guid.TryParse(idText, out var id))
-		{
-			Console.WriteLine("ID inválido.");
-			return;
-		}
+        if (!Guid.TryParse(idText, out var id))
+        {
+            Console.WriteLine("ID inválido.");
+            return;
+        }
 
-		_repository.DeleteVeterinarian(id);
-		Console.WriteLine("✅ Veterinario eliminado con éxito.");
-	}
+        _service.DeleteVeterinarian(id);
+        Console.WriteLine("✅ Veterinario eliminado con éxito.");
+    }
 }
 

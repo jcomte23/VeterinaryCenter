@@ -1,6 +1,7 @@
-﻿using VeterinaryCenter.ConsoleApp.Models.Enums;
+﻿using VeterinaryCenter.ConsoleApp.Models;
+using VeterinaryCenter.ConsoleApp.Models.Enums;
 
-namespace VeterinaryCenter.ConsoleApp.Models;
+namespace VeterinaryCenter.ConsoleApp.Entities;
 
 internal class Veterinarian : Person
 {

@@ -1,4 +1,4 @@
-﻿using VeterinaryCenter.ConsoleApp.Models;
+﻿using VeterinaryCenter.ConsoleApp.Entities;
 
 namespace VeterinaryCenter.ConsoleApp.Data;
 

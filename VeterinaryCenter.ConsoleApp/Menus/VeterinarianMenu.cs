@@ -1,6 +1,7 @@
 ﻿using VeterinaryCenter.ConsoleApp.Data;
+using VeterinaryCenter.ConsoleApp.Entities;
 using VeterinaryCenter.ConsoleApp.Interfaces;
-using VeterinaryCenter.ConsoleApp.Models;
+using VeterinaryCenter.ConsoleApp.Models.Enums;
 
 namespace VeterinaryCenter.ConsoleApp.Menus;
 
@@ -92,7 +93,7 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
 
 		var vet = new Veterinarian(
 			name, lastName,
-			Database.DocumentTypes[0], // Aquí luego podrías pedir tipo de documento
+			DocumentType.CC, // Aquí luego podrías pedir tipo de documento
 			documentNumber, phone, email, address,
 			specialty, years
 		);

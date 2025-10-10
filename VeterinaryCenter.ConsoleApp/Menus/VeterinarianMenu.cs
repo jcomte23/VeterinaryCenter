@@ -136,13 +136,7 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
 
 		foreach (var v in vets)
 		{
-			Console.WriteLine($"ID: {v.Id}");
-			Console.WriteLine($"Nombre: {v.Name} {v.LastName}");
-			Console.WriteLine($"Documento: {v.DocumentType} - {v.DocumentNumber}");
-			Console.WriteLine($"Teléfono: {v.PhoneNumber}");
-			Console.WriteLine($"Email: {v.Email}");
-			Console.WriteLine($"Especialidad: {v.Specialty} ({v.YearsExperience} años)");
-			Console.WriteLine("-------------------------");
+			v.ShowInfo();
 		}
 	}
 
@@ -164,11 +158,7 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
 			return;
 		}
 
-		Console.WriteLine($"Nombre: {vet.Name} {vet.LastName}");
-		Console.WriteLine($"Documento: {vet.DocumentType} - {vet.DocumentNumber}");
-		Console.WriteLine($"Teléfono: {vet.PhoneNumber}");
-		Console.WriteLine($"Email: {vet.Email}");
-		Console.WriteLine($"Especialidad: {vet.Specialty} ({vet.YearsExperience} años)");
+		vet.ShowInfo();
 	}
 
     private void UpdateVeterinarian()
@@ -224,7 +214,6 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
         _repository.UpdateVeterinarian(vet);
         Console.WriteLine("\n✅ Veterinario actualizado con éxito.");
     }
-
 
     private void DeleteVeterinarian()
 	{

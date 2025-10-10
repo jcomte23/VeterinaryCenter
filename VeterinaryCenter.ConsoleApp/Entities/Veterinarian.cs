@@ -27,11 +27,13 @@ internal class Veterinarian : Person
 	}
 
 
-	internal void ShowInfo()
-	{
-		ShowBasicInfo();
-		Console.WriteLine($"Specialty: {Specialty}");
-		Console.WriteLine($"Years of Experience: {YearsExperience}");
-	}
+    internal void ShowInfo()
+    {
+        ShowBasicInfo();
+
+        Console.WriteLine($"│ Especialidad: {Specialty}".PadRight(ContentWidth + 1) + "│");
+        Console.WriteLine($"│ Años de experiencia: {YearsExperience}".PadRight(ContentWidth + 1) + "│");
+        Console.WriteLine("└" + new string('─', ContentWidth) + "┘");
+    }
 }
 

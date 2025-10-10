@@ -2,21 +2,27 @@
 
 public static class View
 {
+    private const int TotalWidth = 47;   // Ancho total del marco (sin bordes)
+    private const int ContentWidth = TotalWidth - 2; // Espacio entre │ │
+
     public static void ShowHeader(string title)
     {
-        Console.WriteLine("┌───────────────────────────────────────────────┐");
-        Console.WriteLine($"│ {title,-45}│");
-        Console.WriteLine("├───────────────────────────────────────────────┤");
+        Console.WriteLine("┌" + new string('─', TotalWidth) + "┐");
+        Console.WriteLine("│" + title.PadRight(TotalWidth) + "│");
+        Console.WriteLine("├" + new string('─', TotalWidth) + "┤");
     }
 
     public static void ShowMenu(string[] options)
     {
-        for (int i = 0; i < options.Length; i++)
+        foreach (var (option, index) in options.Select((text, i) => (text, i + 1)))
         {
-            Console.WriteLine($"│ {i + 1}. {options[i],-42}│");
+            string line = $"{index}. {option}";
+            Console.WriteLine("│ " + line.PadRight(ContentWidth - 1) + "│");
         }
-        Console.WriteLine("│ 0. Exit                                       │");
-        Console.WriteLine("└───────────────────────────────────────────────┘");
+
+        string exitLine = "0. Exit";
+        Console.WriteLine("│ " + exitLine.PadRight(ContentWidth - 1) + "│");
+        Console.WriteLine("└" + new string('─', TotalWidth) + "┘");
         Console.Write("Choose an option: ");
     }
 

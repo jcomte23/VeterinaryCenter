@@ -1,5 +1,4 @@
 ﻿using VeterinaryCenter.ConsoleApp.Entities;
-using VeterinaryCenter.ConsoleApp.Interfaces;
 using VeterinaryCenter.ConsoleApp.Models.Enums;
 using VeterinaryCenter.ConsoleApp.Services;
 
@@ -9,9 +8,9 @@ internal class CustomerMenu
 {
     private readonly CustomerService _service;
 
-    public CustomerMenu(ICustomerRepository repository)
+    public CustomerMenu(CustomerService service)
     {
-        _service = new CustomerService(repository);
+        _service = service;
     }
 
     public void ShowMenu()

@@ -65,7 +65,7 @@ internal static class Database
         var customer3 = new Customer(
             name: "Lucía",
             lastName: "Torres",
-            documentType: DocumentType.CE,
+            documentType: DocumentType.CC,
             documentNumber: "5566778899",
             phoneNumber: "3114455667",
             email: "lucia.torres@yahoo.com",

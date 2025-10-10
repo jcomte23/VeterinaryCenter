@@ -1,6 +1,7 @@
+﻿using VeterinaryCenter.ConsoleApp.Models;
 using VeterinaryCenter.ConsoleApp.Models.Enums;
 
-namespace VeterinaryCenter.ConsoleApp.Models;
+namespace VeterinaryCenter.ConsoleApp.Entities;
 
 internal class Customer : Person
 {
@@ -22,11 +23,14 @@ internal class Customer : Person
 		Pets = [];
 	}
 
-	internal void ShowInfo() 
-	{
-		ShowBasicInfo();
-		Console.WriteLine($"BirthDay: {BirthDay:dd/MM/yyyy}");
-		Console.WriteLine($"Pets Count: {Pets.Count}");
-	}
+    internal void ShowInfo()
+    {
+        ShowBasicInfo();
+
+        Console.WriteLine($"│ Fecha de nacimiento: {BirthDay:dd/MM/yyyy}".PadRight(ContentWidth + 1) + "│");
+        Console.WriteLine($"│ Mascotas registradas: {Pets.Count}".PadRight(ContentWidth + 1) + "│");
+        Console.WriteLine("└" + new string('─', ContentWidth) + "┘");
+    }
+
 
 }

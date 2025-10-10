@@ -7,8 +7,11 @@ internal static class Database
 {
 	internal static List<Veterinarian> Veterinarians { get; } = [];
 
+    internal static List<Customer> Customers { get; } = [];
+
     static Database()
     {
+        // === Veterinarians ===
         var vet1 = new Veterinarian(
             name: "Laura",
             lastName: "Gómez",
@@ -35,6 +38,57 @@ internal static class Database
 
         Veterinarians.Add(vet1);
         Veterinarians.Add(vet1);
+
+        // === Customers ===
+        var customer1 = new Customer(
+            name: "María",
+            lastName: "Rodríguez",
+            documentType: DocumentType.CC,
+            documentNumber: "1122334455",
+            phoneNumber: "3205566778",
+            email: "maria.rodriguez@gmail.com",
+            address: "Av. Las Palmas #12-34, Medellín",
+            birthDay: new DateOnly(1990, 5, 14)
+        );
+
+        var customer2 = new Customer(
+            name: "Carlos",
+            lastName: "Martínez",
+            documentType: DocumentType.CC,
+            documentNumber: "2233445566",
+            phoneNumber: "3109988776",
+            email: "carlos.martinez@hotmail.com",
+            address: "Calle 80 #30-45, Bogotá",
+            birthDay: new DateOnly(1985, 9, 22)
+        );
+
+        var customer3 = new Customer(
+            name: "Lucía",
+            lastName: "Torres",
+            documentType: DocumentType.CE,
+            documentNumber: "5566778899",
+            phoneNumber: "3114455667",
+            email: "lucia.torres@yahoo.com",
+            address: "Cra 5 #15-20, Cali",
+            birthDay: new DateOnly(1995, 12, 3)
+        );
+
+        var customer4 = new Customer(
+            name: "Jorge",
+            lastName: "Ramírez",
+            documentType: DocumentType.CC,
+            documentNumber: "7788990011",
+            phoneNumber: "3023344556",
+            email: "jorge.ramirez@gmail.com",
+            address: "Calle 60 #40-10, Barranquilla",
+            birthDay: new DateOnly(1992, 3, 18)
+        );
+
+        Customers.Add(customer1);
+        Customers.Add(customer2);
+        Customers.Add(customer3);
+        Customers.Add(customer4);
+
     }
 }
 

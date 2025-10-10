@@ -1,3 +1,5 @@
+using VeterinaryCenter.ConsoleApp.Entities;
+
 namespace VeterinaryCenter.ConsoleApp.Models;
 
 internal class Pet(int id, string name, byte ageInMonths, string species, int patientId)

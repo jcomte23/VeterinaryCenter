@@ -63,46 +63,67 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
 		}
 	}
 
-	private void CreateVeterinarian()
-	{
-		Console.WriteLine("=== Registrar Veterinario ===");
+    private void CreateVeterinarian()
+    {
+        Console.WriteLine("=== Registrar Veterinario ===");
 
-		Console.Write("Nombre: ");
-		string name = Console.ReadLine() ?? "";
+        Console.Write("Nombre: ");
+        string name = Console.ReadLine()?.Trim() ?? "";
 
-		Console.Write("Apellido: ");
-		string lastName = Console.ReadLine() ?? "";
+        Console.Write("Apellido: ");
+        string lastName = Console.ReadLine()?.Trim() ?? "";
 
-		Console.Write("Número de documento: ");
-		string documentNumber = Console.ReadLine() ?? "";
+        // === Selección del tipo de documento ===
+        Console.WriteLine("Seleccione el tipo de documento:");
+        var docTypes = Enum.GetValues(typeof(DocumentType)).Cast<DocumentType>().ToList();
 
-		Console.Write("Teléfono: ");
-		string phone = Console.ReadLine() ?? "";
+        for (int i = 0; i < docTypes.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {docTypes[i]}");
+        }
 
-		Console.Write("Email: ");
-		string email = Console.ReadLine() ?? "";
+        int selectedType = 0;
+        while (selectedType < 1 || selectedType > docTypes.Count)
+        {
+            Console.Write("Opción: ");
+            int.TryParse(Console.ReadLine(), out selectedType);
+            if (selectedType < 1 || selectedType > docTypes.Count)
+                Console.WriteLine("❌ Opción inválida. Intente de nuevo.");
+        }
 
-		Console.Write("Dirección: ");
-		string address = Console.ReadLine() ?? "";
+        DocumentType documentType = docTypes[selectedType - 1];
 
-		Console.Write("Especialidad: ");
-		string specialty = Console.ReadLine() ?? "";
+        Console.Write("Número de documento: ");
+        string documentNumber = Console.ReadLine()?.Trim() ?? "";
 
-		Console.Write("Años de experiencia: ");
-		int years = int.TryParse(Console.ReadLine(), out var y) ? y : 0;
+        Console.Write("Teléfono: ");
+        string phone = Console.ReadLine()?.Trim() ?? "";
 
-		var vet = new Veterinarian(
-			name, lastName,
-			DocumentType.CC, // Aquí luego podrías pedir tipo de documento
-			documentNumber, phone, email, address,
-			specialty, years
-		);
+        Console.Write("Email: ");
+        string email = Console.ReadLine()?.Trim() ?? "";
 
-		_repository.AddVeterinarian(vet);
-		Console.WriteLine("✅ Veterinario registrado con éxito.");
-	}
+        Console.Write("Dirección: ");
+        string address = Console.ReadLine()?.Trim() ?? "";
 
-	private void ListVeterinarians()
+        Console.Write("Especialidad: ");
+        string specialty = Console.ReadLine()?.Trim() ?? "";
+
+        Console.Write("Años de experiencia: ");
+        int years = int.TryParse(Console.ReadLine(), out var y) ? y : 0;
+
+        // === Crear objeto Veterinarian ===
+        var vet = new Veterinarian(
+            name, lastName,
+            documentType,
+            documentNumber, phone, email, address,
+            specialty, years
+        );
+
+        _repository.AddVeterinarian(vet);
+        Console.WriteLine("\n✅ Veterinario registrado con éxito.");
+    }
+
+    private void ListVeterinarians()
 	{
 		Console.WriteLine("=== Lista de Veterinarios ===");
 		var vets = _repository.GetAllVeterinarians();
@@ -150,52 +171,62 @@ internal class VeterinarianMenu(IVeterinarianRepository repository)
 		Console.WriteLine($"Especialidad: {vet.Specialty} ({vet.YearsExperience} años)");
 	}
 
-	private void UpdateVeterinarian()
-	{
-		Console.Write("Ingrese el ID del veterinario a actualizar: ");
-		var idText = Console.ReadLine();
+    private void UpdateVeterinarian()
+    {
+        Console.Write("Ingrese el ID del veterinario a actualizar: ");
+        var idText = Console.ReadLine();
 
-		if (!Guid.TryParse(idText, out var id))
-		{
-			Console.WriteLine("ID inválido.");
-			return;
-		}
+        if (!Guid.TryParse(idText, out var id))
+        {
+            Console.WriteLine("❌ ID inválido.");
+            return;
+        }
 
-		var vet = _repository.GetVeterinarianById(id);
-		if (vet is null)
-		{
-			Console.WriteLine("No se encontró el veterinario.");
-			return;
-		}
+        var vet = _repository.GetVeterinarianById(id);
+        if (vet is null)
+        {
+            Console.WriteLine("❌ No se encontró el veterinario.");
+            return;
+        }
 
-		Console.WriteLine("=== Actualizar Veterinario ===");
-		Console.Write($"Nombre ({vet.Name}): ");
-		vet.Name = Console.ReadLine() ?? vet.Name;
+        Console.WriteLine("\n=== Actualizar Veterinario ===");
+        Console.WriteLine("💡 Deje el campo vacío y presione Enter para mantener el valor actual.\n");
 
-		Console.Write($"Apellido ({vet.LastName}): ");
-		vet.LastName = Console.ReadLine() ?? vet.LastName;
+        Console.Write($"Nombre ({vet.Name}): ");
+        string? input = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(input)) vet.Name = input.Trim();
 
-		Console.Write($"Teléfono ({vet.PhoneNumber}): ");
-		vet.PhoneNumber = Console.ReadLine() ?? vet.PhoneNumber;
+        Console.Write($"Apellido ({vet.LastName}): ");
+        input = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(input)) vet.LastName = input.Trim();
 
-		Console.Write($"Email ({vet.Email}): ");
-		vet.Email = Console.ReadLine() ?? vet.Email;
+        Console.Write($"Teléfono ({vet.PhoneNumber}): ");
+        input = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(input)) vet.PhoneNumber = input.Trim();
 
-		Console.Write($"Dirección ({vet.Address}): ");
-		vet.Address = Console.ReadLine() ?? vet.Address;
+        Console.Write($"Email ({vet.Email}): ");
+        input = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(input)) vet.Email = input.Trim();
 
-		Console.Write($"Especialidad ({vet.Specialty}): ");
-		vet.Specialty = Console.ReadLine() ?? vet.Specialty;
+        Console.Write($"Dirección ({vet.Address}): ");
+        input = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(input)) vet.Address = input.Trim();
 
-		Console.Write($"Años de experiencia ({vet.YearsExperience}): ");
-		if (int.TryParse(Console.ReadLine(), out var years))
-			vet.YearsExperience = years;
+        Console.Write($"Especialidad ({vet.Specialty}): ");
+        input = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(input)) vet.Specialty = input.Trim();
 
-		_repository.UpdateVeterinarian(vet);
-		Console.WriteLine("✅ Veterinario actualizado con éxito.");
-	}
+        Console.Write($"Años de experiencia ({vet.YearsExperience}): ");
+        input = Console.ReadLine();
+        if (int.TryParse(input, out var years))
+            vet.YearsExperience = years;
 
-	private void DeleteVeterinarian()
+        _repository.UpdateVeterinarian(vet);
+        Console.WriteLine("\n✅ Veterinario actualizado con éxito.");
+    }
+
+
+    private void DeleteVeterinarian()
 	{
 		Console.Write("Ingrese el ID del veterinario a eliminar: ");
 		var idText = Console.ReadLine();

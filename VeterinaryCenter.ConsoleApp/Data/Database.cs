@@ -32,6 +32,9 @@ internal static class Database
             specialty: "Medicina General",
             yearsExperience: 5
         );
+
+        Veterinarians.Add(vet1);
+        Veterinarians.Add(vet1);
     }
 }
 

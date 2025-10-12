@@ -2,17 +2,17 @@
 
 internal abstract class Animal
 {
-    public Guid Id { get; set; } = Guid.NewGuid(); 
-    public string Name { get; set; } = string.Empty; 
-    public string Species { get; set; } = string.Empty; 
-    public string Breed { get; set; } = string.Empty; 
-    public string Color { get; set; } = string.Empty;
-    public string Gender { get; set; } = string.Empty; 
-    public double Weight { get; set; } 
-    public DateOnly BirthDate { get; set; } 
+    internal Guid Id { get; set; } = Guid.NewGuid();
+    internal string Name { get; set; } = string.Empty;
+    internal string Species { get; set; } = string.Empty;
+    internal string Breed { get; set; } = string.Empty;
+    internal string Color { get; set; } = string.Empty;
+    internal string Gender { get; set; } = string.Empty;
+    internal double Weight { get; set; }
+    internal DateOnly BirthDate { get; set; }
 
     // 🔹 Propiedad de solo lectura que calcula la edad automáticamente
-    public int Age => DateTime.Now.Year - BirthDate.Year -
+    internal int Age => DateTime.Now.Year - BirthDate.Year -
                      (DateTime.Now.DayOfYear < BirthDate.DayOfYear ? 1 : 0);
 
     // Método común para mostrar información general del animal

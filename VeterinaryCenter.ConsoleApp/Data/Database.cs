@@ -12,7 +12,7 @@ internal static class Database
     static Database()
     {
         // === Veterinarians ===
-        var vet1 = new Veterinarian(
+        var veterinarian1 = new Veterinarian(
             name: "Laura",
             lastName: "Gómez",
             documentType: DocumentType.CC,
@@ -23,8 +23,7 @@ internal static class Database
             specialty: "Cirugía",
             yearsExperience: 7
         );
-
-        var vet2 = new Veterinarian(
+        var veterinarian2 = new Veterinarian(
             name: "Andrés",
             lastName: "Pérez",
             documentType: DocumentType.CC,
@@ -36,8 +35,8 @@ internal static class Database
             yearsExperience: 5
         );
 
-        Veterinarians.Add(vet1);
-        Veterinarians.Add(vet1);
+        Veterinarians.Add(veterinarian1);
+        Veterinarians.Add(veterinarian2);
 
         // === Customers ===
         var customer1 = new Customer(
@@ -50,7 +49,6 @@ internal static class Database
             address: "Av. Las Palmas #12-34, Medellín",
             birthDay: new DateOnly(1990, 5, 14)
         );
-
         var customer2 = new Customer(
             name: "Carlos",
             lastName: "Martínez",
@@ -61,7 +59,6 @@ internal static class Database
             address: "Calle 80 #30-45, Bogotá",
             birthDay: new DateOnly(1985, 9, 22)
         );
-
         var customer3 = new Customer(
             name: "Lucía",
             lastName: "Torres",
@@ -72,7 +69,6 @@ internal static class Database
             address: "Cra 5 #15-20, Cali",
             birthDay: new DateOnly(1995, 12, 3)
         );
-
         var customer4 = new Customer(
             name: "Jorge",
             lastName: "Ramírez",

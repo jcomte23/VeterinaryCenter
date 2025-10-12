@@ -1,12 +1,15 @@
-﻿namespace VeterinaryCenter.ConsoleApp.Models;
+﻿using VeterinaryCenter.ConsoleApp.Entities;
+
+namespace VeterinaryCenter.ConsoleApp.Models;
 
 internal abstract class Animal
 {
     internal Guid Id { get; set; } = Guid.NewGuid();
-    internal string Name { get; set; } 
-    internal string Species { get; set; } 
-    internal string Breed { get; set; } 
-    internal string Color { get; set; } 
+    internal string Name { get; set; }
+    internal Customer? Owner { get; set; }
+    internal string Species { get; set; }
+    internal string Breed { get; set; }
+    internal string Color { get; set; }
     internal string Gender { get; set; }
     internal double Weight { get; set; }
     internal DateOnly BirthDate { get; set; }
@@ -51,6 +54,14 @@ internal abstract class Animal
         Console.WriteLine($"│ Sexo: {Gender}".PadRight(ContentWidth + 1) + "│");
         Console.WriteLine($"│ Peso: {Weight} kg".PadRight(ContentWidth + 1) + "│");
         Console.WriteLine($"│ Fecha de Nacimiento: {BirthDate:dd/MM/yyyy} (Edad: {Age})".PadRight(ContentWidth + 1) + "│");
+
+        // 👇 Mostrar el dueño solo si existe
+        if (Owner is not null)
+            Console.WriteLine($"│ Dueño: {Owner.Name} {Owner.LastName}".PadRight(ContentWidth + 1) + "│");
+        else
+            Console.WriteLine($"│ Dueño: (No asignado)".PadRight(ContentWidth + 1) + "│");
+
+        Console.WriteLine("└" + new string('─', ContentWidth) + "┘");
     }
 }
 

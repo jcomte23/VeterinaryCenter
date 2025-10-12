@@ -28,7 +28,8 @@ internal abstract class Animal
         string color,
         string gender,
         double weight,
-        DateOnly birthDate
+        DateOnly birthDate,
+        Customer? owner = null
     )
     {
         Name = name;
@@ -38,6 +39,7 @@ internal abstract class Animal
         Gender = gender;
         Weight = weight;
         BirthDate = birthDate;
+        Owner = owner;
     }
 
     internal virtual void ShowInfo()

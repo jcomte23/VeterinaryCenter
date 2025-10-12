@@ -1,4 +1,5 @@
 ﻿using VeterinaryCenter.ConsoleApp.Entities;
+using VeterinaryCenter.ConsoleApp.Models;
 using VeterinaryCenter.ConsoleApp.Models.Enums;
 
 namespace VeterinaryCenter.ConsoleApp.Data;
@@ -6,8 +7,8 @@ namespace VeterinaryCenter.ConsoleApp.Data;
 internal static class Database
 {
 	internal static List<Veterinarian> Veterinarians { get; } = [];
-
     internal static List<Customer> Customers { get; } = [];
+    internal static List<Animal> Animals { get; } = [];
 
     static Database()
     {
@@ -35,8 +36,7 @@ internal static class Database
             yearsExperience: 5
         );
 
-        Veterinarians.Add(veterinarian1);
-        Veterinarians.Add(veterinarian2);
+        Veterinarians.AddRange([veterinarian1, veterinarian2]);
 
         // === Customers ===
         var customer1 = new Customer(
@@ -80,11 +80,77 @@ internal static class Database
             birthDay: new DateOnly(1992, 3, 18)
         );
 
-        Customers.Add(customer1);
-        Customers.Add(customer2);
-        Customers.Add(customer3);
-        Customers.Add(customer4);
+        Customers.AddRange([customer1, customer2, customer3, customer4]);
 
+        // === Animals ===
+        var dog1 = new Dog(
+            name: "Rocky",
+            species: "Perro",
+            breed: "Labrador Retriever",
+            color: "Dorado",
+            gender: "Macho",
+            weight: 28.5,
+            birthDate: new DateOnly(2019, 3, 15),
+            isNeutered: true,
+            size: "Grande",
+            microchipNumber: "CHP-001",
+            owner: customer1
+        );
+        var dog2 = new Dog(
+            name: "Luna",
+            species: "Perro",
+            breed: "Border Collie",
+            color: "Blanco y negro",
+            gender: "Hembra",
+            weight: 18.2,
+            birthDate: new DateOnly(2020, 8, 10),
+            isNeutered: false,
+            size: "Mediano",
+            microchipNumber: "CHP-002",
+            owner: customer2
+        );
+        var dog3 = new Dog(
+            name: "Toby",
+            species: "Perro",
+            breed: "Beagle",
+            color: "Tricolor",
+            gender: "Macho",
+            weight: 12.4,
+            birthDate: new DateOnly(2021, 1, 25),
+            isNeutered: true,
+            size: "Pequeño",
+            microchipNumber: "CHP-003",
+            owner: customer3
+        );
+        var dog4 = new Dog(
+            name: "Nala",
+            species: "Perro",
+            breed: "Golden Retriever",
+            color: "Dorado claro",
+            gender: "Hembra",
+            weight: 26.8,
+            birthDate: new DateOnly(2018, 11, 5),
+            isNeutered: true,
+            size: "Grande",
+            microchipNumber: "CHP-004",
+            owner: customer1
+        );
+        var dog5 = new Dog(
+            name: "Max",
+            species: "Perro",
+            breed: "Pastor Alemán",
+            color: "Negro y fuego",
+            gender: "Macho",
+            weight: 32.0,
+            birthDate: new DateOnly(2017, 6, 18),
+            isNeutered: false,
+            size: "Grande",
+            microchipNumber: "CHP-005",
+            owner: null // 👈 sin dueño asignado
+        );
+
+        // Agregar a la lista
+        Animals.AddRange([dog1, dog2, dog3, dog4, dog5]);
     }
 }
 

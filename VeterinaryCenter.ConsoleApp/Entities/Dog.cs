@@ -18,8 +18,9 @@ internal class Dog : Animal
         DateOnly birthDate,
         bool isNeutered,
         string size,
-        string microchipNumber
-    ) : base(name, species, breed, color,gender, weight, birthDate)
+        string microchipNumber,
+        Customer? owner = null
+    ) : base(name, species, breed, color,gender, weight, birthDate,owner)
     {
         IsNeutered = isNeutered;
         Size = size;
@@ -34,6 +35,5 @@ internal class Dog : Animal
         Console.WriteLine($"│ Microchip: {MicrochipNumber}".PadRight(ContentWidth + 1) + "│");
         Console.WriteLine("└" + new string('─', ContentWidth) + "┘");
     }
-
 }
 

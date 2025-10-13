@@ -1,4 +1,5 @@
 ﻿using VeterinaryCenter.ConsoleApp.Entities;
+using VeterinaryCenter.ConsoleApp.Interfaces;
 using VeterinaryCenter.ConsoleApp.Models;
 using VeterinaryCenter.ConsoleApp.Repositories;
 
@@ -6,11 +7,11 @@ namespace VeterinaryCenter.ConsoleApp.Services;
 
 internal class AnimalService
 {
-    private readonly AnimalRepository _animalRepository;
+    private readonly IAnimalRepository _repository;
 
-    internal AnimalService()
+    internal AnimalService(IAnimalRepository repository)
     {
-        _animalRepository = new AnimalRepository();
+        _repository = repository;
     }
 
     internal void AddAnimal(Animal animal)
@@ -25,17 +26,17 @@ internal class AnimalService
         if (string.IsNullOrWhiteSpace(animal.Species))
             throw new ArgumentException("Debe especificarse la especie.");
 
-        _animalRepository.AddAnimal(animal);
+        _repository.AddAnimal(animal);
     }
 
     internal List<Animal> GetAllAnimals()
     {
-        return _animalRepository.GetAllAnimals();
+        return _repository.GetAllAnimals();
     }
 
     internal Animal? GetAnimalById(Guid id)
     {
-        return _animalRepository.GetAnimalById(id);
+        return _repository.GetAnimalById(id);
     }
 
     internal void UpdateAnimal(Animal animal)
@@ -43,12 +44,12 @@ internal class AnimalService
         if (animal is null)
             throw new ArgumentNullException(nameof(animal));
 
-        _animalRepository.UpdateAnimal(animal);
+        _repository.UpdateAnimal(animal);
     }
 
     internal void DeleteAnimal(Guid id)
     {
-        _animalRepository.DeleteAnimal(id);
+        _repository.DeleteAnimal(id);
     }
 
     internal List<Animal> GetAnimalsByOwner(Customer owner)
@@ -56,7 +57,7 @@ internal class AnimalService
         if (owner is null)
             throw new ArgumentNullException(nameof(owner));
 
-        return _animalRepository.GetAnimalsByOwner(owner);
+        return _repository.GetAnimalsByOwner(owner);
     }
 
     internal List<Animal> GetAnimalsBySpecies(string species)
@@ -64,12 +65,12 @@ internal class AnimalService
         if (string.IsNullOrWhiteSpace(species))
             throw new ArgumentException("La especie no puede estar vacía.");
 
-        return _animalRepository.GetAnimalsBySpecies(species);
+        return _repository.GetAnimalsBySpecies(species);
     }
 
     internal void ShowAllAnimals()
     {
-        var animals = _animalRepository.GetAllAnimals();
+        var animals = _repository.GetAllAnimals();
 
         if (animals.Count == 0)
         {

@@ -16,7 +16,8 @@ internal static class MainMenu
             View.ShowHeader("🐾 VETERINARY CENTER APP");
             View.ShowMenu([
                 "Veterinarian Management",
-                "Customer Management"
+                "Customer Management",
+                "Animal Management"
             ]);
 
             if (!int.TryParse(Console.ReadLine(), out option))
@@ -31,6 +32,9 @@ internal static class MainMenu
                     break;
                 case 2:
                     ShowCustomerMenu();
+                    break;
+                case 3:
+                    ShowAnimalMenu();
                     break;
                 case 0:
                     Console.WriteLine("👋 Exiting the system...");
@@ -59,6 +63,14 @@ internal static class MainMenu
         var service = new CustomerService(repository);
         var menu = new CustomerMenu(service);
         menu.ShowMenu();
+    }
+
+    private static void ShowAnimalMenu()
+    {
+        var repository = new AnimalRepository();
+        var service = new AnimalService(repository);
+        var menu = new AnimalMenu(service);
+        menu.Show();
     }
 }
 

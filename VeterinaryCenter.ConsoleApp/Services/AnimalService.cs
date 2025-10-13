@@ -16,17 +16,10 @@ internal class AnimalService
 
     internal void AddAnimal(Animal animal)
     {
-        if (animal is null)
-            throw new ArgumentNullException(nameof(animal));
-
-        // Ejemplo de validación básica
-        if (string.IsNullOrWhiteSpace(animal.Name))
-            throw new ArgumentException("El nombre del animal es obligatorio.");
-
-        if (string.IsNullOrWhiteSpace(animal.Species))
-            throw new ArgumentException("Debe especificarse la especie.");
-
         _repository.AddAnimal(animal);
+
+        if (animal.Owner is not null)
+            animal.Owner.Pets.Add(animal);
     }
 
     internal List<Animal> GetAllAnimals()
@@ -49,6 +42,10 @@ internal class AnimalService
 
     internal void DeleteAnimal(Guid id)
     {
+        var animal = _repository.GetAnimalById(id);
+        if (animal.Owner is not null)
+            animal.Owner.Pets.Remove(animal);
+
         _repository.DeleteAnimal(id);
     }
 

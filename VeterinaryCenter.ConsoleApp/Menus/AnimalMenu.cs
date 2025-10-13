@@ -7,10 +7,12 @@ namespace VeterinaryCenter.ConsoleApp.Menus;
 internal class AnimalMenu
 {
     private readonly AnimalService _service;
+    private readonly CustomerService _customerService;
 
-    public AnimalMenu(AnimalService service)
+    public AnimalMenu(AnimalService service, CustomerService customerService)
     {
         _service = service;
+        _customerService = customerService;
     }
 
     internal void Show()
@@ -77,6 +79,8 @@ internal class AnimalMenu
     private void CreateAnimal()
     {
         Console.WriteLine("=== Registrar Nuevo Animal ===");
+
+        // 🐶 Datos básicos
         Console.Write("Nombre: ");
         string name = Console.ReadLine() ?? string.Empty;
 
@@ -96,8 +100,43 @@ internal class AnimalMenu
         double weight = double.TryParse(Console.ReadLine(), out double w) ? w : 0;
 
         Console.Write("Fecha de nacimiento (yyyy-mm-dd): ");
-        DateOnly birthDate = DateOnly.TryParse(Console.ReadLine(), out var date) ? date : new DateOnly(2020, 1, 1);
+        DateOnly birthDate = DateOnly.TryParse(Console.ReadLine(), out var date)
+            ? date
+            : new DateOnly(2020, 1, 1);
 
+        Console.Write("¿Está esterilizado? (s/n): ");
+        bool isNeutered = Console.ReadLine()?.Trim().ToLower() == "s";
+
+        // 👇 Nuevo: pedir tamaño
+        Console.Write("Tamaño (Pequeño/Mediano/Grande): ");
+        string size = Console.ReadLine() ?? "Mediano";
+
+        Console.WriteLine("\n--- Seleccionar Dueño ---");
+        var customers = _customerService.GetAllCustomers();
+        Customer? selectedOwner = null;
+
+        if (customers.Count == 0)
+        {
+            Console.WriteLine("No hay clientes registrados. El animal se guardará sin dueño.");
+        }
+        else
+        {
+            for (int i = 0; i < customers.Count; i++)
+            {
+                var c = customers[i];
+                Console.WriteLine($"{i + 1}. {c.Name} {c.LastName} ({c.Email})");
+            }
+
+            Console.Write("Seleccione el número del dueño (0 = ninguno): ");
+            int ownerOption = int.TryParse(Console.ReadLine(), out int opt) ? opt : 0;
+
+            if (ownerOption > 0 && ownerOption <= customers.Count)
+                selectedOwner = customers[ownerOption - 1];
+            else
+                Console.WriteLine("⚠️ Opción inválida. El animal se guardará sin dueño.");
+        }
+
+        // 🐕 Crear el nuevo perro
         var animal = new Dog(
             name,
             species,
@@ -106,10 +145,10 @@ internal class AnimalMenu
             gender,
             weight,
             birthDate,
-            isNeutered: false,
-            size: "Mediano",
+            isNeutered,
+            size,
             microchipNumber: Guid.NewGuid().ToString()[..8],
-            owner: null
+            owner: selectedOwner
         );
 
         _service.AddAnimal(animal);

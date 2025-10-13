@@ -69,7 +69,9 @@ internal static class MainMenu
     {
         var repository = new AnimalRepository();
         var service = new AnimalService(repository);
-        var menu = new AnimalMenu(service);
+        var customerRepository = new CustomerRepository();
+        var customerservice = new CustomerService(customerRepository);
+        var menu = new AnimalMenu(service, customerservice);
         menu.Show();
     }
 }

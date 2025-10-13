@@ -9,6 +9,7 @@ internal static class Database
 	internal static List<Veterinarian> Veterinarians { get; } = [];
     internal static List<Customer> Customers { get; } = [];
     internal static List<Animal> Animals { get; } = [];
+    internal static List<Appointment> Appointments { get; } = [];
 
     static Database()
     {
@@ -151,6 +152,19 @@ internal static class Database
 
         // Agregar a la lista
         Animals.AddRange([dog1, dog2, dog3, dog4, dog5]);
+
+        var appointment1 = new Appointment(
+           pet: dog1,
+           owner: customer1,
+           veterinarian: veterinarian1,
+           serviceType: "Vacunación antirrábica",
+           appointmentDate: new DateOnly(2025, 10, 15),
+           startTime: new TimeOnly(14, 00),
+           endTime: new TimeOnly(14, 30),
+           notes: "Primera dosis de vacuna."
+       );
+
+        Appointments.Add(appointment1);
     }
 }
 
